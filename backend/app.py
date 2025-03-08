@@ -1,10 +1,16 @@
-from flask import Flask, request, jsonify
+from flask import Flask, render_template, request, jsonify
 from flask_cors import CORS
 from fact_check import check_fact, fact_check_website
 from database import get_db_connection
 
-app = Flask(__name__)
+# ✅ Tell Flask where the static folder is located
+app = Flask(__name__, static_folder='../static', template_folder='../templates')
 CORS(app)
+
+# Route to serve the homepage
+@app.route('/')
+def home():
+    return render_template('index.html')
 
 @app.route('/fact-check', methods=['POST'])
 def fact_check():
@@ -17,8 +23,8 @@ def fact_check():
     connection = get_db_connection()
     cursor = connection.cursor()
     cursor.execute(
-        "INSERT INTO queries (user_query, ai_response, confidence_score, result, source) VALUES (%s, %s, %s, %s, %s)",
-        (claim, result['explanation'], result['confidence_score'], result['result'], result['source'])
+        "INSERT INTO queries (user_query, ai_response, confidence_score) VALUES (%s, %s, %s)",
+        (claim, result['explanation'], result['confidence_score'])
     )
     connection.commit()
     connection.close()
@@ -34,4 +40,3 @@ def fact_check_url():
 
 if __name__ == '__main__':
     app.run(debug=True)
-

@@ -16,10 +16,17 @@ def check_fact(claim):
         claim_result = response['claims'][0]['claimReview'][0]
         result = claim_result['textualRating']
         source = claim_result['publisher']['name']
+        # Confidence based on source credibility and result
+        if result.lower() == 'true':
+            confidence_score = 0.9 if 'reliable' in source.lower() else 0.75
+        elif result.lower() == 'false':
+            confidence_score = 0.3 if 'unreliable' in source.lower() else 0.5
+        else:
+            confidence_score = 0.6
     else:
         result = "Unknown"
         source = "No data available"
-
+        confidence_score = 0.5
     # Step 2: Use GPT to Explain
     explanation = openai.ChatCompletion.create(
     model="gpt-4o",
@@ -27,14 +34,13 @@ def check_fact(claim):
         {"role": "system", "content": "You are a fact-checking assistant."},
         {"role": "user", "content": f"Explain why this claim is true or false: {claim}"}
     ],
-    max_tokens=100
+    max_tokens=150
 ).choices[0].message['content'].strip()
 
-    confidence_score = 0.85 if result.lower() == 'true' else 0.45
+    
 
     return {
-        'result': result,
-        'source': source,
+        
         'explanation': explanation,
         'confidence_score': confidence_score
     }
