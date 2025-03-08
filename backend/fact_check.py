@@ -4,7 +4,8 @@ from bs4 import BeautifulSoup
 
 # Google Fact-Check API and GPT Keys
 GOOGLE_FACT_CHECK_API_KEY = "AIzaSyDqZY9IJPB_MC7TXx3ciPxdE0y4kgKFhXY"
-openai.api_key = "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"
+openai.api_key = "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"
+openai.organization = "org-cyCkntgHctxSMIqLZ2DJWmEQ"
 
 def check_fact(claim):
     # Step 1: Use Google Fact-Check API
@@ -21,7 +22,7 @@ def check_fact(claim):
 
     # Step 2: Use GPT to Explain
     explanation = openai.ChatCompletion.create(
-    model="gpt-3.5-turbo",
+    model="gpt-4o",
     messages=[
         {"role": "system", "content": "You are a fact-checking assistant."},
         {"role": "user", "content": f"Explain why this claim is true or false: {claim}"}
@@ -46,7 +47,7 @@ def fact_check_website(url):
         text = ' '.join(soup.stripped_strings)[:500]
 
         explanation = openai.Completion.create(
-            engine="gpt-4",
+            engine="gpt-4o",
             prompt=f"Check if the following information is factual: {text}",
             max_tokens=100
         ).choices[0].text.strip()
