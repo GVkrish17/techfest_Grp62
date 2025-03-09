@@ -15,8 +15,8 @@ body {
     padding: 30px;
     border: 4px solid #002366;
     border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(56, 7, 7, 0.2);
-    width: 400px; /* Increased width */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    width: 400px;
     text-align: center;
 }
 
@@ -30,8 +30,8 @@ h1 {
 
 /* Input and Button Styling */
 textarea, input {
-    width: 95%; /* Increased width */
-    padding: 16px; /* Increased padding */
+    width: 95%; 
+    padding: 16px;
     margin-bottom: 15px;
     border: 2px solid #002366;
     border-radius: 8px;
@@ -39,7 +39,7 @@ textarea, input {
 }
 
 button {
-    width: 90%;
+    width: 100%;
     padding: 12px;
     background-color: #002366;
     color: white;
@@ -62,45 +62,69 @@ button:hover {
     background-color: #f0f0f0;
     border: 2px solid #002366;
     border-radius: 8px;
-    font-size: 18px;
-    max-height: none; /* Remove height restriction */
-    overflow-y: visible; /* Remove scroll */
-    width: 90%; /* Make container wider */
+    font-size: 16px;
+    overflow-y: auto;
+    width: 100%; /* ✅ Ensures container is not larger than parent */
+    max-width: 380px; /* ✅ Keep consistent width */
+    box-sizing: border-box; /* ✅ Padding won't affect width */
+    margin-left: auto;
+    margin-right: auto;
 }
-/* Result Card Styling */
+
+
 /* Result Card Styling */
 .result-card {
     padding: 20px;
     border: 2px solid #002366;
-    background-color: #f9f9f9;
+    background-color: #ffffff;
     border-radius: 12px;
-    margin-top: 20px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%; /* ✅ Same width as parent */
+    max-width: 340px; /* ✅ Slightly smaller to give breathing space */
+    text-align: left;
+    box-sizing: border-box; /* ✅ Padding won't add to the width */
+    margin-left: auto;
+    margin-right: auto;
 }
+
+
 
 /* Confidence Score Colors */
 .high-confidence {
-    color: #2ecc71; /* Green */
+    color: #2ecc71; /* Green for high confidence */
     font-weight: bold;
 }
 
 .medium-confidence {
-    color: #f1c40f; /* Yellow */
+    color: #f1c40f; /* Yellow for medium confidence */
     font-weight: bold;
 }
 
 .low-confidence {
-    color: #e74c3c; /* Red */
+    color: #e74c3c; /* Red for low confidence */
     font-weight: bold;
 }
 
 /* Bullet Points for Explanation */
 .result-card p {
+    text-align: left;
     margin: 8px 0;
-    font-size: 16px;
+    font-size: 14px;
     line-height: 1.5;
+    padding-left: 5px;
+    padding-right: 5px; /* ✅ Keep left and right balanced */
 }
 
-.result-card strong {
-    color: #002366;
+
+/* Mobile Responsiveness */
+@media (max-width: 600px) {
+    .container {
+        width: 90%; /* ✅ Adjusts for mobile */
+    }
+
+    #resultContainer,
+    .result-card {
+        width: 100%; /* ✅ Keeps everything consistent */
+    }
 }
+
