@@ -219,3 +219,31 @@ button:hover {
     border-radius: 8px;
     text-align: left;
 }
+
+/* Icon Container */
+.icon-container {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.icon-container a {
+    text-decoration: none;
+    color: #002366;
+    display: inline-block;
+    transition: transform 0.2s ease;
+}
+
+.icon-container img {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 8px;
+}
+
+.icon-container p {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.icon-container a:hover {
+    transform: scale(1.1);
+}

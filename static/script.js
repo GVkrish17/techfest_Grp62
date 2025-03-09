@@ -134,3 +134,32 @@ function displayMessage(message, className) {
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
 }
 
+async function uploadImage() {
+    const fileInput = document.getElementById('fileInput');
+    if (!fileInput.files.length) return alert("Please select a file");
+
+    const formData = new FormData();
+    formData.append('file', fileInput.files[0]);
+
+    try {
+        const response = await fetch(`${API_URL}/detect-image`, {
+            method: 'POST',
+            body: formData
+        });
+
+        const data = await response.json();
+        const resultContainer = document.getElementById('imageResult');
+
+        if (data.is_fake) {
+            resultContainer.innerHTML = `<p>🚨 Fake Image Detected! Confidence: ${(data.confidence * 100).toFixed(2)}%</p>`;
+            resultContainer.style.color = 'red';
+        } else {
+            resultContainer.innerHTML = `<p>✅ Real Image Detected! Confidence: ${(data.confidence * 100).toFixed(2)}%</p>`;
+            resultContainer.style.color = 'green';
+        }
+    } catch (error) {
+        alert("Failed to connect to server.");
+        console.error('Error:', error);
+    }
+}
+

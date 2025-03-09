@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <title>Image Fake Checker</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Image Fake Checker</h1>
+        <input type="file" id="fileInput">
+        <button onclick="uploadImage()">Check Image</button>
+        <div id="imageResult"></div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

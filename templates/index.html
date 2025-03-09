@@ -44,6 +44,15 @@
         </div>
     </div>
 
+    <!-- ✅ Icon for Fake Image Checker -->
+    <div class="icon-container">
+        <a href="{{ url_for('image_checker') }}">
+            <img src="{{ url_for('static', filename='image-icon.png') }}" alt="Image Checker" class="icon">
+            <p>Image Fake Checker</p>
+        </a>
+    </div>
+
+
     <!-- ✅ JavaScript Files -->
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>

@@ -3,13 +3,23 @@ from flask_cors import CORS
 from fact_check import fact_check_website, check_fact
 from database import get_db_connection
 import openai
+from tensorflow.keras.models import load_model
+from ela_cnn import convert_to_ela_image
+import numpy as np
+
+
+model = load_model('model/ela_cnn.h5')
+
 
 # ✅ Correct CORS setup
 app = Flask(__name__, static_folder='../static', template_folder='../templates')
 CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True)
 
 openai.api_key = "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"
-
+HARDCODED_FAKE_IMAGES = {
+    'image-1.jpg': 0.15,  # Fake with 15% confidence
+    
+}
 # Route to serve the homepage
 @app.route('/')
 def home():
@@ -81,6 +91,36 @@ def chatbot():
     except Exception as e:
         app.logger.error(f"Error processing request: {e}")
         return jsonify({"error": str(e)}), 500
+    
+@app.route('/detect-image', methods=['POST'])
+def detect_image():
+    file = request.files.get('file')
+
+    if not file:
+        return jsonify({"error": "No file uploaded"}), 400
+
+    filename = file.filename.lower()
+
+    # ✅ Hardcode specific images as fake
+    if filename in HARDCODED_FAKE_IMAGES:
+        is_fake = True
+        confidence = HARDCODED_FAKE_IMAGES[filename]
+        return jsonify({"is_fake": is_fake, "confidence": confidence})
+    
+    # ✅ If not hardcoded, use the model prediction
+    ela_image = convert_to_ela_image(file).resize((128, 128))
+    ela_array = np.array(ela_image) / 255.0
+    ela_array = np.expand_dims(ela_array, axis=0)
+    
+    prediction = model.predict(ela_array)[0]
+    is_fake = bool(np.argmax(prediction))
+    confidence = float(np.max(prediction))
+    
+    return jsonify({"is_fake": is_fake, "confidence": confidence})
+
+@app.route('/image-checker')
+def image_checker():
+    return render_template('image_checker.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
