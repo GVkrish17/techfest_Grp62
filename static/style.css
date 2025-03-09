@@ -146,18 +146,16 @@ button:hover {
 }
 
 #chatbot-container {
-    position: fixed;
-    bottom: 80px;
-    right: 20px;
-    width: 320px;
+    width: 400px;
+    max-height: 600px; /* Allow larger content but limit overall height */
     background-color: #ffffff;
     border: 2px solid #002366;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     overflow: hidden;
-    display: none;
     z-index: 1000;
 }
+
 
 #chatbot-header {
     background-color: #002366;
@@ -170,11 +168,20 @@ button:hover {
 }
 
 #chatbot-messages {
-    height: 300px;
-    overflow-y: auto;
-    padding: 10px;
+    max-height: 500px; /* Set a larger max height */
+    min-height: 150px; /* Ensure there's always some height */
+    overflow-y: auto; /* Enable vertical scrolling */
+    padding: 12px;
     font-size: 16px;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    white-space: normal; /* Allow text to wrap correctly */
+    word-wrap: break-word; /* Ensure long words wrap properly */
 }
+
+
 
 #chatbot-input-container {
     display: flex;

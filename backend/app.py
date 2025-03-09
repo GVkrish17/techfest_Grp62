@@ -17,9 +17,9 @@ CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True)
 
 openai.api_key = "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"
 HARDCODED_FAKE_IMAGES = {
-    'image-1.jpg': 0.15,  # Fake with 15% confidence
-    'image3-4-900x600.jpg': 0.10, 
-    'AI trading scam.png': 0.12, 
+    'image-1.jpg',  # Fake with 15% confidence
+    'image3-4-900x600.jpg', 
+    'AI trading scam.png', 
 }
 # Route to serve the homepage
 @app.route('/')

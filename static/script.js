@@ -18,13 +18,14 @@ async function checkFact() {
         } else {
             displayResult({
                 explanation: data.error || 'Failed to process claim',
-                confidence_score: 0
+                
+            
             });
         }
     } catch (error) {
         displayResult({
             explanation: 'Failed to connect to server.',
-            confidence_score: 0
+            
         });
     }
 }
@@ -47,13 +48,13 @@ async function checkURL() {
         } else {
             displayResult({
                 explanation: data.error || 'Failed to process URL',
-                confidence_score: 0
+                
             });
         }
     } catch (error) {
         displayResult({
             explanation: 'Failed to connect to server.',
-            confidence_score: 0
+            
         });
     }
 }
@@ -101,6 +102,7 @@ async function sendMessage() {
     if (!input) return;
 
     displayMessage(input, 'user-message');
+    inputElement.value = '';
     try {
         const response = await fetch(`${API_URL}/chatbot`, {
             method: 'POST',
@@ -168,9 +170,9 @@ function displayImageResult(data) {
     const resultContainer = document.getElementById('imageResult');
 
     if (data.is_fake) {
-        resultContainer.innerHTML = `<p style="color: red; font-weight: bold;">🚨 Fake Image Detected! Confidence: ${(data.confidence * 100).toFixed(2)}%</p>`;
+        resultContainer.innerHTML = `<p style="color: red; font-weight: bold;">🚨 Fake Image Detected! </p>`;
     } else {
-        resultContainer.innerHTML = `<p style="color: green; font-weight: bold;">✅ Real Image Detected! Confidence: ${(data.confidence * 100).toFixed(2)}%</p>`;
+        resultContainer.innerHTML = `<p style="color: green; font-weight: bold;">✅ Real Image Detected! </p>`;
     }
 }
 
