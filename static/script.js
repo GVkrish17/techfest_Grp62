@@ -90,3 +90,47 @@ function formatExplanation(explanation) {
         .map(line => `• ${line}`) // Add bullet points
         .join('<br>'); // Join lines with a line break
 }
+
+// Toggle chatbot visibility
+function toggleChatbot() {
+    const chatbot = document.getElementById('chatbot-container');
+    chatbot.style.display = chatbot.style.display === 'block' ? 'none' : 'block';
+}
+
+// Send message to backend
+
+async function sendMessage() {
+    const inputElement = document.getElementById('chatbot-input');
+    const input = inputElement.value.trim();
+
+    if (!input) return;
+
+    displayMessage(input, 'user-message');
+    try {
+        const response = await fetch(`${API_URL}/chatbot`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ message: input })
+        });
+
+        const data = await response.json();
+        displayMessage(data.response, 'bot-message');
+    } catch (error) {
+        displayMessage("Failed to connect to server.", 'bot-message');
+        console.error('Error:', error);
+    }
+}
+
+
+// Display messages in chatbot
+function displayMessage(message, className) {
+    const messagesContainer = document.getElementById('chatbot-messages');
+    const messageElement = document.createElement('div');
+    messageElement.className = className;
+    messageElement.innerText = message;
+    messagesContainer.appendChild(messageElement);
+
+    // Auto-scroll to latest message
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+}
+
