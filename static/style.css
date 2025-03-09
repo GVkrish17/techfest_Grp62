@@ -1,7 +1,7 @@
-/* General Page Styling */
+/* ✅ General Styling */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #cce7ff; /* Light blue background */
+    font-family: 'Montserrat', sans-serif;
+    background-color: #f0f4f8;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -9,35 +9,98 @@ body {
     margin: 0;
 }
 
-/* Container Styling */
+/* ✅ Header Styling */
+/* ✅ Header Styling */
+.header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%; /* Full width */
+    padding: 20px;
+    text-align: center;
+    background-color: transparent; /* Transparent background */
+}
+
+.header h1 {
+    font-size: 85px;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+}
+
+.title {
+    font-size: 3000px;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    margin: 0;
+}
+
+/* ✅ Hero Container */
+.hero-container {
+    text-align: center;
+    margin-top: 80px; /* Added margin below header */
+}
+
+/* ✅ Icon Container */
+.icon-container {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    margin-top: 20px;
+}
+
+.icon-container a {
+    text-decoration: none;
+    color: #e2e4ea;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.3s ease;
+}
+
+.icon-container img {
+    width: 200px; /* Increased size */
+    height: 200px;
+    margin-bottom: 15px;
+}
+
+.icon-container p {
+    font-size: 35px;
+    font-weight: bold;
+}
+
+.icon-container p:hover {
+    color: #9ff29f; /* Changes to green when hovered */
+}
+
+
+.icon-container a:hover {
+    transform: scale(1.1);
+}
+
+/* ✅ Fact Checker Page Styling */
 .container {
-    background-color: #ffffff;
+    background-color: #d5dde9;
     padding: 30px;
-    border: 4px solid #002366;
     border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    width: 400px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
     text-align: center;
 }
 
-/* Heading Styling */
-h1 {
-    font-size: 28px;
-    font-weight: bold;
-    color: #002366;
-    margin-bottom: 20px;
-}
-
-/* Input and Button Styling */
 textarea, input {
-    width: 95%; 
-    padding: 16px;
-    margin-bottom: 15px;
-    border: 2px solid #002366;
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
     border-radius: 8px;
     font-size: 18px;
+    box-sizing: border-box;
 }
 
+/* ✅ Button Styling */
 button {
     width: 100%;
     padding: 12px;
@@ -45,9 +108,8 @@ button {
     color: white;
     border: none;
     border-radius: 8px;
-    font-size: 18px;
+    font-size: 20px;
     cursor: pointer;
-    margin-bottom: 10px;
     transition: background-color 0.3s ease;
 }
 
@@ -55,80 +117,20 @@ button:hover {
     background-color: #0039a6;
 }
 
-/* Result Container Styling */
+/* ✅ Result Container */
 #resultContainer {
     margin-top: 20px;
-    padding: 16px;
-    background-color: #f0f0f0;
-    border: 2px solid #002366;
+    padding: 12px;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
     border-radius: 8px;
     font-size: 16px;
+    text-align: left;
     overflow-y: auto;
-    width: 100%; /* ✅ Ensures container is not larger than parent */
-    max-width: 380px; /* ✅ Keep consistent width */
-    box-sizing: border-box; /* ✅ Padding won't affect width */
-    margin-left: auto;
-    margin-right: auto;
+    max-height: 300px;
 }
 
-
-/* Result Card Styling */
-.result-card {
-    padding: 20px;
-    border: 2px solid #002366;
-    background-color: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 100%; /* ✅ Same width as parent */
-    max-width: 340px; /* ✅ Slightly smaller to give breathing space */
-    text-align: left;
-    box-sizing: border-box; /* ✅ Padding won't add to the width */
-    margin-left: auto;
-    margin-right: auto;
-}
-
-
-
-/* Confidence Score Colors */
-.high-confidence {
-    color: #2ecc71; /* Green for high confidence */
-    font-weight: bold;
-}
-
-.medium-confidence {
-    color: #f1c40f; /* Yellow for medium confidence */
-    font-weight: bold;
-}
-
-.low-confidence {
-    color: #e74c3c; /* Red for low confidence */
-    font-weight: bold;
-}
-
-/* Bullet Points for Explanation */
-.result-card p {
-    text-align: left;
-    margin: 8px 0;
-    font-size: 14px;
-    line-height: 1.5;
-    padding-left: 5px;
-    padding-right: 5px; /* ✅ Keep left and right balanced */
-}
-
-
-/* Mobile Responsiveness */
-@media (max-width: 600px) {
-    .container {
-        width: 90%; /* ✅ Adjusts for mobile */
-    }
-
-    #resultContainer,
-    .result-card {
-        width: 100%; /* ✅ Keeps everything consistent */
-    }
-}
-
-/* Chatbot Button */
+/* ✅ Chatbot Styling */
 #chatbot-button {
     position: fixed;
     bottom: 20px;
@@ -143,7 +145,6 @@ button:hover {
     font-size: 18px;
 }
 
-/* Chatbot Container */
 #chatbot-container {
     position: fixed;
     bottom: 80px;
@@ -158,7 +159,6 @@ button:hover {
     z-index: 1000;
 }
 
-/* Chatbot Header */
 #chatbot-header {
     background-color: #002366;
     color: white;
@@ -169,15 +169,13 @@ button:hover {
     align-items: center;
 }
 
-/* Chatbot Messages */
 #chatbot-messages {
     height: 300px;
     overflow-y: auto;
     padding: 10px;
-    font-size: 14px;
+    font-size: 16px;
 }
 
-/* Chatbot Input Container */
 #chatbot-input-container {
     display: flex;
     padding: 10px;
@@ -203,7 +201,7 @@ button:hover {
     font-size: 14px;
 }
 
-/* User and Bot Messages */
+/* ✅ Message Styling */
 .user-message {
     background-color: #d1e7ff;
     padding: 8px;
@@ -220,30 +218,58 @@ button:hover {
     text-align: left;
 }
 
-/* Icon Container */
-.icon-container {
-    margin-top: 20px;
-    text-align: center;
-}
-
-.icon-container a {
-    text-decoration: none;
-    color: #002366;
-    display: inline-block;
+/* ✅ Home Icon Styling */
+.home-icon {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 50px;
+    z-index: 1000;
     transition: transform 0.2s ease;
 }
 
-.icon-container img {
-    width: 80px;
-    height: 80px;
-    margin-bottom: 8px;
+.home-icon img {
+    width: 100%;
+    height: auto;
 }
 
-.icon-container p {
-    font-size: 16px;
+
+
+/* ✅ Mobile Responsiveness */
+@media (max-width: 600px) {
+    .title {
+        font-size: 36px; /* Adjust header size for mobile */
+    }
+
+    .icon-container {
+        flex-direction: column;
+        gap: 20px;
+    }
+}
+
+/* ✅ Uploaded Image Display */
+#uploaded-image {
+    margin-top: 20px;
+    width: 100%;
+    max-width: 400px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#imageResult p {
+    font-size: 20px;
     font-weight: bold;
+    text-align: center;
+    margin-top: 10px;
 }
 
-.icon-container a:hover {
-    transform: scale(1.1);
+/* ✅ Uploaded Image Styling */
+#uploadedImage {
+    margin-top: 20px;
+    width: 100%;
+    max-width: 400px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }

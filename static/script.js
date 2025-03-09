@@ -1,5 +1,6 @@
 const API_URL = 'http://127.0.0.1:5000';
 
+/* ✅ Handle Fact Checking */
 async function checkFact() {
     const claim = document.getElementById('claimInput').value;
 
@@ -28,6 +29,7 @@ async function checkFact() {
     }
 }
 
+/* ✅ Handle URL Fact Checking */
 async function checkURL() {
     const url = document.getElementById('urlInput').value;
 
@@ -56,49 +58,42 @@ async function checkURL() {
     }
 }
 
+/* ✅ Display Fact/URL Results */
 function displayResult(data) {
     const container = document.getElementById('resultContainer');
     
-    // Format the confidence score (if available)
-    const confidence = data.confidence_score
-        ? `${(data.confidence_score * 100).toFixed(2)}%`
-        : 'N/A';
 
     container.innerHTML = `
-        <div class="result-card">
-            <p><strong>Confidence Score:</strong> 
-                <span class="${getConfidenceColor(data.confidence_score || 0)}">
-                    ${confidence}
-                </span>
-            </p>
-            <p><strong>Explanation:</strong></p>
-            <p>${formatExplanation(data.explanation || 'No explanation available.')}</p>
-        </div>
-    `;
+    <div class="result-card">
+        <p><strong>Explanation:</strong></p>
+        <p>${formatExplanation(data.explanation || 'No explanation available.')}</p>
+    </div>
+`;
+
 }
 
+/* ✅ Set Color Based on Confidence */
 function getConfidenceColor(score) {
     if (score >= 0.75) return 'high-confidence'; // Green for high confidence
     if (score >= 0.50) return 'medium-confidence'; // Yellow for medium confidence
     return 'low-confidence'; // Red for low confidence
 }
 
-// ✅ Format Explanation with Bullet Points
+/* ✅ Format Explanation */
 function formatExplanation(explanation) {
     return explanation
-        .split('\n') // Split explanation into lines
+        .split('\n') // Split into lines
         .map(line => `• ${line}`) // Add bullet points
-        .join('<br>'); // Join lines with a line break
+        .join('<br>'); // Join lines with line breaks
 }
 
-// Toggle chatbot visibility
+/* ✅ Toggle Chatbot Visibility */
 function toggleChatbot() {
     const chatbot = document.getElementById('chatbot-container');
     chatbot.style.display = chatbot.style.display === 'block' ? 'none' : 'block';
 }
 
-// Send message to backend
-
+/* ✅ Handle Chatbot Messaging */
 async function sendMessage() {
     const inputElement = document.getElementById('chatbot-input');
     const input = inputElement.value.trim();
@@ -121,8 +116,7 @@ async function sendMessage() {
     }
 }
 
-
-// Display messages in chatbot
+/* ✅ Display Messages in Chatbot */
 function displayMessage(message, className) {
     const messagesContainer = document.getElementById('chatbot-messages');
     const messageElement = document.createElement('div');
@@ -134,6 +128,7 @@ function displayMessage(message, className) {
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
 }
 
+/* ✅ Handle Image Upload */
 async function uploadImage() {
     const fileInput = document.getElementById('fileInput');
     if (!fileInput.files.length) return alert("Please select a file");
@@ -148,18 +143,49 @@ async function uploadImage() {
         });
 
         const data = await response.json();
-        const resultContainer = document.getElementById('imageResult');
+        displayImageResult(data);
 
-        if (data.is_fake) {
-            resultContainer.innerHTML = `<p>🚨 Fake Image Detected! Confidence: ${(data.confidence * 100).toFixed(2)}%</p>`;
-            resultContainer.style.color = 'red';
-        } else {
-            resultContainer.innerHTML = `<p>✅ Real Image Detected! Confidence: ${(data.confidence * 100).toFixed(2)}%</p>`;
-            resultContainer.style.color = 'green';
-        }
+        // ✅ Show uploaded image
+        displayUploadedImage(fileInput.files[0]);
+
     } catch (error) {
         alert("Failed to connect to server.");
         console.error('Error:', error);
     }
 }
 
+/* ✅ Display Uploaded Image */
+function displayUploadedImage(file) {
+    const uploadedImage = document.getElementById('uploadedImage');
+    const imageUrl = URL.createObjectURL(file);
+
+    uploadedImage.src = imageUrl;
+    uploadedImage.style.display = 'block'; // Show the image
+}
+
+/* ✅ Display Image Result */
+function displayImageResult(data) {
+    const resultContainer = document.getElementById('imageResult');
+
+    if (data.is_fake) {
+        resultContainer.innerHTML = `<p style="color: red; font-weight: bold;">🚨 Fake Image Detected! Confidence: ${(data.confidence * 100).toFixed(2)}%</p>`;
+    } else {
+        resultContainer.innerHTML = `<p style="color: green; font-weight: bold;">✅ Real Image Detected! Confidence: ${(data.confidence * 100).toFixed(2)}%</p>`;
+    }
+}
+
+/* ✅ Handle File Preview */
+const fileInput = document.getElementById('fileInput');
+const uploadedImage = document.getElementById('uploadedImage');
+
+fileInput.addEventListener('change', (event) => {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            uploadedImage.src = e.target.result;
+            uploadedImage.style.display = 'block'; // ✅ Show the image
+        };
+        reader.readAsDataURL(file);
+    }
+});

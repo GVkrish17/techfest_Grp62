@@ -1,10 +1,11 @@
+<!-- fact_checker.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
-    <title>Image Fake Checker</title>
+    <title>Fact Checker</title>
 </head>
 <body style="
 background-image: url('{{ url_for('static', filename='bg-icon.jpg') }}');
@@ -26,19 +27,13 @@ height: 100vh;
         <img src="{{ url_for('static', filename='home-icon.png') }}" alt="Home">
     </a>
 
-    <!-- ✅ Main Container -->
     <div class="container">
-        <h1>Image Fake Checker</h1>
-        
-        <!-- ✅ Image Upload -->
-        <input type="file" id="fileInput">
-        <button onclick="uploadImage()">Check Image</button>
-        
-        <!-- ✅ Uploaded Image Preview -->
-        <img id="uploadedImage" src="" alt="Uploaded Image" style="display: none; width: 100%; max-width: 400px; margin-top: 20px; border-radius: 8px;" />
-        
-        <!-- ✅ Result -->
-        <div id="imageResult"></div>
+        <h1>Fact Checker</h1>
+        <textarea id="claimInput" placeholder="Enter a claim..."></textarea>
+        <button onclick="checkFact()">Check Fact</button>
+        <input id="urlInput" placeholder="Enter a URL..." />
+        <button onclick="checkURL()">Check URL</button>
+        <div id="resultContainer"></div>
     </div>
 
     <script src="{{ url_for('static', filename='script.js') }}"></script>

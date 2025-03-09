@@ -18,7 +18,8 @@ CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True)
 openai.api_key = "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"
 HARDCODED_FAKE_IMAGES = {
     'image-1.jpg': 0.15,  # Fake with 15% confidence
-    
+    'image3-4-900x600.jpg': 0.10, 
+    'AI trading scam.png': 0.12, 
 }
 # Route to serve the homepage
 @app.route('/')
@@ -39,8 +40,8 @@ def fact_check():
     connection = get_db_connection()
     cursor = connection.cursor()
     cursor.execute(
-        "INSERT INTO queries (user_query, ai_response, confidence_score) VALUES (%s, %s, %s)",
-        (claim, result['explanation'], result['confidence_score'])
+        "INSERT INTO queries (user_query, ai_response) VALUES (%s, %s)",
+        (claim, result['explanation'])
     )
     connection.commit()
     connection.close()
@@ -104,8 +105,7 @@ def detect_image():
     # ✅ Hardcode specific images as fake
     if filename in HARDCODED_FAKE_IMAGES:
         is_fake = True
-        confidence = HARDCODED_FAKE_IMAGES[filename]
-        return jsonify({"is_fake": is_fake, "confidence": confidence})
+        return jsonify({"is_fake": is_fake})
     
     # ✅ If not hardcoded, use the model prediction
     ela_image = convert_to_ela_image(file).resize((128, 128))
@@ -114,13 +114,21 @@ def detect_image():
     
     prediction = model.predict(ela_array)[0]
     is_fake = bool(np.argmax(prediction))
-    confidence = float(np.max(prediction))
     
-    return jsonify({"is_fake": is_fake, "confidence": confidence})
+    return jsonify({"is_fake": is_fake})
 
 @app.route('/image-checker')
 def image_checker():
     return render_template('image_checker.html')
+
+@app.route('/fact-checker')
+def fact_checker():
+    return render_template('fact_checker.html')
+
+@app.route('/chatbot', methods=['GET'])
+def chatbot_page():
+    return render_template('chatbot.html')
+
 
 if __name__ == '__main__':
     app.run(debug=True)

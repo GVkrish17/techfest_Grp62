@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
-    <title>Image Fake Checker</title>
+    <title>Chatbot</title>
 </head>
 <body style="
 background-image: url('{{ url_for('static', filename='bg-icon.jpg') }}');
@@ -26,19 +26,13 @@ height: 100vh;
         <img src="{{ url_for('static', filename='home-icon.png') }}" alt="Home">
     </a>
 
-    <!-- ✅ Main Container -->
     <div class="container">
-        <h1>Image Fake Checker</h1>
-        
-        <!-- ✅ Image Upload -->
-        <input type="file" id="fileInput">
-        <button onclick="uploadImage()">Check Image</button>
-        
-        <!-- ✅ Uploaded Image Preview -->
-        <img id="uploadedImage" src="" alt="Uploaded Image" style="display: none; width: 100%; max-width: 400px; margin-top: 20px; border-radius: 8px;" />
-        
-        <!-- ✅ Result -->
-        <div id="imageResult"></div>
+        <h1>Misinformation Chatbot</h1>
+        <div id="chatbot-messages"></div>
+        <div id="chatbot-input-container">
+            <input id="chatbot-input" type="text" placeholder="Ask about misinformation...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
     </div>
 
     <script src="{{ url_for('static', filename='script.js') }}"></script>

@@ -4,56 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
-    <title>AI Fact Checker</title>
+    <title>AI Media Verification</title>
 </head>
-<body>
-    <!-- ✅ Fact Checker Container -->
-    <div class="container">
-        <h1>AI Fact Checker</h1>
-        
-        <!-- Fact Input -->
-        <textarea id="claimInput" placeholder="Enter a claim..."></textarea>
-        <button onclick="checkFact()">Check Fact</button>
-        
-        <!-- URL Input -->
-        <input id="urlInput" placeholder="Enter a URL..." />
-        <button onclick="checkURL()">Check URL</button>
+<body style="
+background-image: url('{{ url_for('static', filename='bg-icon.jpg') }}');
+background-size: cover;
+background-position: center;
+background-attachment: fixed;
+margin: 0;
+padding: 0;
+height: 100vh;
+">
 
-        <!-- Result Container -->
-        <div id="resultContainer"></div>
-    </div>
+    <!-- ✅ Updated Header -->
+    <header class="header">
+        <h1 class="title">AI Media Verification</h1>
+    </header>
 
-    <!-- ✅ Chatbot Button -->
-    <div id="chatbot-button" onclick="toggleChatbot()">💬</div>
+    <div class="hero-container">
+        <div class="icon-container">
+            <!-- Fact Checker Icon -->
+            <a href="{{ url_for('fact_checker') }}">
+                <img src="{{ url_for('static', filename='fact-icon.png') }}" alt="Fact Checker">
+                <p>Fact Checker</p>
+            </a>
 
-    <!-- ✅ Chatbot Container -->
-    <div id="chatbot-container">
-        <!-- Chatbot Header -->
-        <div id="chatbot-header">
-            <span>🧠 Misinformation Chatbot</span>
-            <button onclick="toggleChatbot()">✖</button>
+            <!-- Image Fake Checker Icon -->
+            <a href="{{ url_for('image_checker') }}">
+                <img src="{{ url_for('static', filename='image-icon.png') }}" alt="Image Fake Checker">
+                <p>Image Fake Checker</p>
+            </a>
+
+            <!-- Chatbot Icon -->
+            <a href="{{ url_for('chatbot_page') }}">
+                <img src="{{ url_for('static', filename='chatbot-icon.png') }}" alt="Chatbot">
+                <p>Chatbot</p>
+            </a>
         </div>
-
-        <!-- Chatbot Messages -->
-        <div id="chatbot-messages"></div>
-
-        <!-- Chatbot Input -->
-        <div id="chatbot-input-container">
-            <input id="chatbot-input" type="text" placeholder="Ask about misinformation..." />
-            <button onclick="sendMessage()">Send</button>
-        </div>
     </div>
 
-    <!-- ✅ Icon for Fake Image Checker -->
-    <div class="icon-container">
-        <a href="{{ url_for('image_checker') }}">
-            <img src="{{ url_for('static', filename='image-icon.png') }}" alt="Image Checker" class="icon">
-            <p>Image Fake Checker</p>
-        </a>
-    </div>
-
-
-    <!-- ✅ JavaScript Files -->
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
